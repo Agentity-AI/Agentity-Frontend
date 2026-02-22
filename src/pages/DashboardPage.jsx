@@ -3,15 +3,6 @@ import Card from "../components/Card/Card";
 import SecurityCheck from "../components/security-check/SecurityCheck";
 import topMetrics from "../constants/topMetrix";
 import AppLayout from "../layouts/AppLayouts";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Tooltip,
-  Legend,
-} from "chart.js";
 import TwoLineChart from "../components/chart/TwoLineChart";
 import recentActivities from "../constants/recentActivities";
 import Activity from "../components/activity/Activity";
@@ -20,14 +11,7 @@ import Activity from "../components/activity/Activity";
 
 
 function DashboardPage() {
-    ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Tooltip,
-  Legend
-);
+ 
 
   return (
     <AppLayout>

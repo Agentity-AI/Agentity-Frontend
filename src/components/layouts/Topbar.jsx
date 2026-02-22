@@ -21,7 +21,7 @@ function Topbar() {
       {/* Right side controls */}
       <div className="flex items-center gap-4">
         {/* Network badge */}
-        <div className="rounded-full flex gap-2 px-3 py-2 text-[#138d2b] bg-[#19291c] border-[#0c7421]">
+        <div className="rounded-full flex gap-2 px-3 py-2 text-[#0cf33a] border-[#0cf33a] border-1 bg-[#19291c] ">
           <div className="relative flex items-center justify-center">
   {/* animated ring */}
   <div className="absolute inline-flex h-4 w-4 rounded-full bg-[#0cf33a] opacity-75 animate-ping"></div>
