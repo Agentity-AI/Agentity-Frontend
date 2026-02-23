@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import navItems from "../../constants/navItem";
 function Sidebar() {
   return (
-    <div className="flex-1 flex flex-col border-[#514c4c]  bg-[#0B1020]">
+    <div className="flex-1 h-300 fixed flex flex-col border-[#514c4c]  bg-[#0B1020]">
       {/* Logo */}
       <div className="h-16 flex items-center px-4 gap-2 border-b border-[#514c4c]">
         <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center">

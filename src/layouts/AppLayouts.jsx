@@ -13,7 +13,7 @@ function AppLayout({ children }) {
       {/* Main area */}
       <div className="flex-1 flex flex-col">
         {/* Topbar */}
-        <header className="h-16 border-b border-[#514c4c] flex items-center px-4">
+        <header className="h-16 border-b border-base-300 flex items-center px-4">
           <Topbar />
         </header>
 
