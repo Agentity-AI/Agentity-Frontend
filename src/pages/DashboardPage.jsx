@@ -16,7 +16,7 @@ function DashboardPage() {
   return (
     <AppLayout>
       {/* Header */}
-      <div className="mb-6 p-4 rounded-lg">
+      <div id="dashboard" className="mb-6 p-4 rounded-lg">
         <h1 className="text-3xl font-bold mb-1">Dashboard</h1>
         <p className="text-sm text-base-content/60 text-white">
           System overview and activity monitoring
