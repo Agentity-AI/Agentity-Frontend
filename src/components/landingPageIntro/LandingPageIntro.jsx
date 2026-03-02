@@ -4,7 +4,7 @@ import SignUp from "../signUp/SignUp"
 import Login from "../login/Login"
 function LandingPageIntro() {
   return (
-    <div className='text-white mt-15 px-4'>
+    <div className='text-white mt-25 px-4'>
         <div className='bg-[#0c022d] flex items-center w-70 gap-2.5 text-[#25059b] 
         justify-center py-2 mt-5 rounded-full mx-auto shadow-lg'> 
     <svg xmlns="http://www.w3.org/2000/svg" 
