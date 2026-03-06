@@ -6,12 +6,48 @@ import AppLayout from "../layouts/AppLayouts";
 import TwoLineChart from "../components/chart/TwoLineChart";
 import recentActivities from "../constants/recentActivities";
 import Activity from "../components/activity/Activity";
-
-
-
+import { authentication } from "../store/zustant/useZustandHook";
 
 function DashboardPage() {
- 
+  const { dashBoard, setVerificationData,setVulnerabilityData
+    ,
+    setLabelData
+  } = authentication();
+
+  // Avoid destructuring from null/undefined
+  const {
+    Totalagent = 0,
+    TotalvarifiedAgent = 0,
+    TransactionsExecuted = 0,
+    VulnerabilitiesDetected = 0,
+    activeAgent = null,
+    activeSimulation = 0,
+    chart = {},
+  } = dashBoard || {};
+
+  const {
+    labels = [],
+    Verification = [],
+    Vulnerability = [],
+  } = chart || {};
+
+  setVerificationData(Verification);
+  setVulnerabilityData(Vulnerability);
+  setLabelData(labels);
+  const verifiedAgentsRatio = `${TotalvarifiedAgent}/${Totalagent || 1}`;
+const score =Math.ceil(Math.max(
+  0,
+  Math.min(
+    100,
+     TotalvarifiedAgent / (Totalagent || 1) * 100 
+  )
+));
+const riskLabel =
+  score >= 80 ? "Low Risk" : score >= 50 ? "Medium Risk" : "High Risk";
+const systemHealth = `${score.toFixed(1)}%`;
+
+
+  console.log("Dashboard data in DashboardPage:", dashBoard);
 
   return (
     <AppLayout>
@@ -23,43 +59,77 @@ function DashboardPage() {
         </p>
       </div>
 
+      {/* Top metrics (example wiring to real values) */}
       <div className="grid gap-4 md:grid-cols-3 xl:grid-cols-5 mb-6">
-        {topMetrics.map((m) => (
-          <Card label={m.label} value={m.value} deltaText={m.deltaText}  />
-        ))}
+        <Card
+          label="Total Agents"
+          value={Totalagent}
+          deltaText="+0 today"
+        />
+        <Card
+          label="Verified Agents"
+          value={TotalvarifiedAgent}
+          deltaText="+0 today"
+        />
+        <Card
+          label="Transactions Executed"
+          value={TransactionsExecuted}
+          deltaText="+0 today"
+        />
+        <Card
+          label="Vulnerabilities Detected"
+          value={VulnerabilitiesDetected}
+          deltaText="+0 today"
+        />
+        <Card
+          label="Active Simulations"
+          value={activeSimulation}
+          deltaText=""
+        />
       </div>
 
-   
-      <div className="grid gap-8 grid-cols-3 ">
+      <div className="grid gap-8 grid-cols-3">
         {/* Security Status card */}
-        
-        <SecurityCheck />
+        <SecurityCheck
+  score={score}
+  riskLabel={riskLabel}
+  verifiedAgents={verifiedAgentsRatio}
+  activeAlerts={activeSimulation}
+  systemHealth={systemHealth}
+/>
+
         {/* Trends chart card */}
         <div className="card bg-base-200 border border-[#514c4c] col-span-2">
           <div className="card-body">
             <div className="flex ml-4 mt-4">
-             <ChartArea className="w-5 h-5 mr-2 text-[#0d59a5]" />
-            <h2 className="card-title">
-             Verification &amp; Vulnerability Trends
-            </h2></div>
+              <ChartArea className="w-5 h-5 mr-2 text-[#0d59a5]" />
+              <h2 className="card-title">
+                Verification &amp; Vulnerability Trends
+              </h2>
+            </div>
             <div className="mt-4 h-64 rounded-xl w-full bg-base-300 border-none flex items-center justify-center">
-
               <span className="ml-5 text-sm text-base-content/60 w-full h-full flex items-center justify-center">
-                <TwoLineChart/>
+                <TwoLineChart
+                  labels={labels}
+                  verification={Verification}
+                  vulnerability={Vulnerability}
+                />
               </span>
             </div>
           </div>
         </div>
-        <div className="border-[#514c4c]  bg-[#0B1020] col-span-3 rounded-lg border">
-            <div className="flex my-2 mx-8">
-                <ChartArea className=" mr-2 text-[#0d59a5]" size={30}/>
-                <h1 className="mt-2">Recent Activity</h1>
-            </div>
-            <div className="h-64 overflow-y-auto grid gap-2">
-              {recentActivities.map((activity) => (
-                <Activity key={activity.id} {...activity} />
-              ))}
-              </div>
+
+        {/* Recent Activity */}
+        <div className="border-[#514c4c] bg-[#0B1020] col-span-3 rounded-lg border">
+          <div className="flex my-2 mx-8">
+            <ChartArea className="mr-2 text-[#0d59a5]" size={30} />
+            <h1 className="mt-2">Recent Activity</h1>
+          </div>
+          <div className="h-64 overflow-y-auto grid gap-2">
+            {recentActivities.map((activity) => (
+              <Activity key={activity.id} {...activity} />
+            ))}
+          </div>
         </div>
       </div>
     </AppLayout>

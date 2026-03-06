@@ -1,89 +1,75 @@
+// TwoLineChart.jsx
+import React, { useMemo } from "react";
 import {
   Chart as ChartJS,
+  LineElement,
   CategoryScale,
   LinearScale,
   PointElement,
-  LineElement,
-  Tooltip,
   Legend,
+  Tooltip,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 
-// Register the pieces of Chart.js we need
 ChartJS.register(
+  LineElement,
   CategoryScale,
   LinearScale,
   PointElement,
-  LineElement,
-  Tooltip,
-  Legend
+  Legend,
+  Tooltip
 );
 
-const labels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"];
+function TwoLineChart({ labels, verification, vulnerability }) {
+  const data = useMemo(
+    () => ({
+      labels: labels || [0,0,0,0,0],
+      datasets: [
+        {
+          label: "Verification",
+          data: verification || [],
+          borderColor: "#0d59a5",
+          backgroundColor: "rgba(13, 89, 165, 0.2)",
+          tension: 0.3,
+        },
+        {
+          label: "Vulnerability",
+          data: vulnerability || [0,0,0,0,0],
+          borderColor: "#f97316",
+          backgroundColor: "rgba(249, 115, 22, 0.2)",
+          tension: 0.3,
+        },
+      ],
+    }),
+    [labels, verification, vulnerability]
+  );
 
-const data = {
-  labels,
-  datasets: [
-    {
-      label: "Verification",
-      data: [10, 20, 30, 40, 50, 60],       // numbers for line 1
-      borderColor: "#6366F1",
-      backgroundColor: "rgba(99, 102, 241, 0.3)",
-      tension: 0.4,                          // smooth curve
-      fill: false,
-      pointRadius: 4,
-      pointHoverRadius: 6,
-    },
-    {
-      label: "Vulnerabilities",
-      data: [0, 2, 1.5, 3.3, 1, 0],        // numbers for line 2
-      borderColor: "#F97373",
-      backgroundColor: "rgba(249, 115, 115, 0.3)",
-      tension: 0.4,
-      fill: false,
-      pointRadius: 4,
-      pointHoverRadius: 6,
-    },
-  ],
-};
-
-const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: "top",
-      labels: {
-        color: "#e5e7eb",
-      },
-    },
-    tooltip: {
-      enabled: true,        // show tooltip on hover (default)
-      mode: "index",        // show values for *both* lines at that x value
-      intersect: false,     // you don't need to be exactly on the point
-      callbacks: {
-        // customize the text in the tooltip
-        label: (context) => {
-          const label = context.dataset.label || "";
-          const value = context.parsed.y;
-          return `${label}: ${value}`;
+  const options = useMemo(
+    () => ({
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          labels: {
+            color: "#e5e7eb",
+          },
         },
       },
-    },
-  },
-  scales: {
-    x: {
-      ticks: { color: "#9ca3af" },
-      grid: { color: "rgba(148, 163, 184, 0.2)" },
-    },
-    y: {
-      ticks: { color: "#9ca3af" },
-      grid: { color: "rgba(148, 163, 184, 0.2)" },
-    },
-  },
-};
+      scales: {
+        x: {
+          ticks: { color: "#9ca3af" },
+          grid: { color: "rgba(31,41,55,0.4)" },
+        },
+        y: {
+          ticks: { color: "#9ca3af" },
+          grid: { color: "rgba(31,41,55,0.4)" },
+        },
+      },
+    }),
+    []
+  );
 
-function TwoLineChart() {
-  return <div className="h-full w-full"><Line data={data} options={options}  /></div>;
+  return <Line data={data} options={options} />;
 }
 
 export default TwoLineChart;
