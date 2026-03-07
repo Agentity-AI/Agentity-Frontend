@@ -23,11 +23,11 @@ function Login() {
 
       await loginUser(user);
 
-  console.log(dashBoard);
+
       if (dashBoard) {
         navigate("/dashboard");
       }
-      console.log("User registered successfully");
+     
     } catch (e) {
       console.error("Error registering user:", e);
     }

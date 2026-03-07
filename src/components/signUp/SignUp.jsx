@@ -10,7 +10,6 @@ function SignUp() {
     try {
       const result = await signinWithGoogle();
       if (!result) {
-        // user cancelled popup or signin failed but was handled already
         return;
       }
 
@@ -23,11 +22,9 @@ function SignUp() {
       };
 
       await registerUser(user);
-      console.log("User registered successfully");
-   
- if (dashBoard) {
-        navigate("/dashboard");
-      }
+     
+     if (dashBoard)   navigate("/dashboard");
+      
     } catch (e) {
       console.error("Error registering user:", e);
     }

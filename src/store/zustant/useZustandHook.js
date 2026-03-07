@@ -15,10 +15,10 @@ export const authentication = create((set) => ({
 
       const res = await api.post('/auth/register', payload);
 
-      console.log('Registration response:', res.status, res.data);
+     
 
       if (!res || res.status < 200 || res.status >= 300) {
-        console.log('Registration failed');
+        alert('Registration failed please try again');
       }
          const { jwt, dashboard, email, name } = res.data;
 
@@ -27,14 +27,10 @@ export const authentication = create((set) => ({
         user: { email, name },
         loading: false,
       });
-      console.log('User registered successfully, dashboard data:', dashboard);
-      // Adjust this path to match your real API response
      
-
-      
-      
+      // Adjust this path to match your real API response
     } catch (err) {
-      console.error('registerUser error:', err);
+     
       set({
         loading: false,
         error: err?.response?.data?.message ?? 'Failed to register user',
@@ -51,7 +47,7 @@ export const authentication = create((set) => ({
       console.log('Login response:', res.status, res.data);
 
      if (!res || res.status < 200 || res.status >= 300) {
-        console.log('Registration failed');
+        alert('Login failed please try again');
       }
          const { jwt, dashboard, email, name } = res.data;
 
@@ -60,10 +56,9 @@ export const authentication = create((set) => ({
         user: { email, name },
         loading: false,
       });
-      console.log('User registered successfully, dashboard data:', dashboard);
+    
       // Adjust this path to match your real API response
     } catch (err) {
-      console.error('loginUser error:', err);
       set({
         loading: false,
         error: err?.response?.data?.message ?? 'Failed to login user',
