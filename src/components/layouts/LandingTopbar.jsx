@@ -1,5 +1,5 @@
-import React from 'react'
 import SignUp from '../signUp/SignUp';
+import logo from "../../assets/Agentity-logo.png"
 
 function LandingTopbar() {
 
@@ -10,7 +10,9 @@ function LandingTopbar() {
         {/* Left side (optional breadcrumb / page title placeholder) */}
         <div className="h-16 flex items-center px-4 gap-2 border-none ">
         <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center">
-          <span className="text-xl text-primary-content">🛡️</span>
+          <span className="text-xl text-primary-content">
+             <img src={logo} alt="ahentity logo"/>
+          </span>
         </div>
         <span className="font-semibold text-lg">Agentity</span>
       </div>

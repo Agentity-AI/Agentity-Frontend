@@ -24,9 +24,10 @@ function SignUp() {
 
       await registerUser(user);
       console.log("User registered successfully");
-      console.log(dashBoard);
-
-      navigate("/dashboard");
+   
+ if (dashBoard) {
+        navigate("/dashboard");
+      }
     } catch (e) {
       console.error("Error registering user:", e);
     }

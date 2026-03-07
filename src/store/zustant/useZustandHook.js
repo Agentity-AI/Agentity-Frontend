@@ -8,9 +8,6 @@ export const authentication = create((set) => ({
   agents: [],
   agentDetails: null,
   smartContracts: [],
-  VerificationData: [],
-  VulnerabilityData: [],
-  labelData: [],
 
   registerUser: async (payload) => {
     try {
@@ -27,13 +24,12 @@ export const authentication = create((set) => ({
 
       set({
         dashBoard: dashboard,
-        token: jwt,
         user: { email, name },
         loading: false,
       });
       console.log('User registered successfully, dashboard data:', dashboard);
       // Adjust this path to match your real API response
-      const dashBoard = res.data?.data?.dashBoard ?? res.data?.dashBoard ?? null;
+     
 
       
       
@@ -54,9 +50,18 @@ export const authentication = create((set) => ({
 
       console.log('Login response:', res.status, res.data);
 
-      const dashBoard = res.data?.data?.dashBoard ?? res.data?.dashBoard ?? null;
+     if (!res || res.status < 200 || res.status >= 300) {
+        console.log('Registration failed');
+      }
+         const { jwt, dashboard, email, name } = res.data;
 
-      set({ dashBoard, loading: false });
+      set({
+        dashBoard: dashboard,
+        user: { email, name },
+        loading: false,
+      });
+      console.log('User registered successfully, dashboard data:', dashboard);
+      // Adjust this path to match your real API response
     } catch (err) {
       console.error('loginUser error:', err);
       set({
@@ -64,8 +69,5 @@ export const authentication = create((set) => ({
         error: err?.response?.data?.message ?? 'Failed to login user',
       });
     }
-  },
-  setVerificationData: (data) => set({ VerificationData: data }),
-  setVulnerabilityData: (data) => set({ VulnerabilityData: data }),
-  setLabelData: (data) => set({ labelData: data }),
+  }
 }));

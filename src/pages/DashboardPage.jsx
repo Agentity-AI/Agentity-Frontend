@@ -1,7 +1,6 @@
 import { ChartArea } from "lucide-react";
 import Card from "../components/Card/Card";
 import SecurityCheck from "../components/security-check/SecurityCheck";
-import topMetrics from "../constants/topMetrix";
 import AppLayout from "../layouts/AppLayouts";
 import TwoLineChart from "../components/chart/TwoLineChart";
 import recentActivities from "../constants/recentActivities";
@@ -9,9 +8,7 @@ import Activity from "../components/activity/Activity";
 import { authentication } from "../store/zustant/useZustandHook";
 
 function DashboardPage() {
-  const { dashBoard, setVerificationData,setVulnerabilityData
-    ,
-    setLabelData
+  const { dashBoard
   } = authentication();
 
   // Avoid destructuring from null/undefined
@@ -31,9 +28,6 @@ function DashboardPage() {
     Vulnerability = [],
   } = chart || {};
 
-  setVerificationData(Verification);
-  setVulnerabilityData(Vulnerability);
-  setLabelData(labels);
   const verifiedAgentsRatio = `${TotalvarifiedAgent}/${Totalagent || 1}`;
 const score =Math.ceil(Math.max(
   0,
@@ -109,11 +103,12 @@ const systemHealth = `${score.toFixed(1)}%`;
             </div>
             <div className="mt-4 h-64 rounded-xl w-full bg-base-300 border-none flex items-center justify-center">
               <span className="ml-5 text-sm text-base-content/60 w-full h-full flex items-center justify-center">
-                <TwoLineChart
-                  labels={labels}
-                  verification={Verification}
-                  vulnerability={Vulnerability}
-                />
+              <TwoLineChart
+  verification={Verification}
+  vulnerability={Vulnerability}
+/>
+
+
               </span>
             </div>
           </div>
