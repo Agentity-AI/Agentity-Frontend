@@ -90,7 +90,7 @@ export const authentication = create((set) => ({
         error:
           err?.response?.data?.message ?? "Failed to get dashboard data",
       });
-      toast.error("Failed to load dashboard data", { id: "load-dashboard" });
+    
     }
   },
 
