@@ -1,7 +1,8 @@
 // api.ts
 import axios from 'axios';
 
-export const api = axios.create({
+const api = axios.create({
   baseURL: 'https://agentity-backend.onrender.com', 
-
+  withCredentials:true
 });
+export default api;

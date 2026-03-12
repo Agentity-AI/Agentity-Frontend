@@ -1,9 +1,10 @@
 import signinWithGoogle from "../signinWithGoogle/signinWithGoogle";
 import { authentication } from "../../store/zustant/useZustandHook";
 import { useNavigate } from "react-router-dom";
+import { Loading } from "../loading/Loading";
 
 function SignUp() {
-  const { registerUser, dashBoard } = authentication();
+  const { registerUser, dashBoard ,loading} = authentication();
   const navigate = useNavigate();
 
   async function handleSignUp() {
